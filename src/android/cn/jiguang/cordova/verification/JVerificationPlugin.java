@@ -217,7 +217,17 @@ public class JVerificationPlugin extends CordovaPlugin {
         uiConfigBuilder.addCustomView(tvPhoneLogin, false, new JVerifyUIClickCallback() {
             @Override
             public void onClicked(Context context, View view) {
-                callbackContext.success();
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("code", "92999"); // 九宫格拼音“学车小王子”
+                    jsonObject.put("content", "其它方式登录");
+                    jsonObject.put("operator", "otherLogin");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                PluginResult pluginResult = new PluginResult(PluginResult.Status.ERROR, jsonObject.toString());
+                pluginResult.setKeepCallback(true);
+                callbackContext.sendPluginResult(pluginResult);
             }
         });
 
